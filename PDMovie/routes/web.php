@@ -17,5 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/movies', function() {
-    return view('movielist');
+    return view('/movie.index');
+});
+Route::get('/demofilm', function() {
+    return view('demofilm');
+});
+Route::get('movies/{mid}', function(){
+    return view('/movie.show');
 });

@@ -57,4 +57,11 @@ class MovieController extends Controller
             'newuser' => $lastUser,
         ]);
     }
+
+    public function show($mid){
+        $results = DB::select("Select * from movies where movie_id=?", array($mid));
+        return response()->json([
+            'movie_detail' => $results
+        ]);
+    }
 }

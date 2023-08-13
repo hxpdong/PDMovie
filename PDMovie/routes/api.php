@@ -24,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/recommended/{uid}', [RecommenderController::class, 'UserBased_CollaborativeFiltering']);
 Route::post('/users/new' , [MovieController::class, 'insertMovie']);
+Route::get('/movies/{mid}', [MovieController::class, 'show']);
