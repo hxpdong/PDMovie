@@ -27,9 +27,26 @@ function changeVimeoUrl() {
     if (videoId) {
         const videoURL = "https://player.vimeo.com/video/" + videoId;
         console.log("id url: " + videoURL);
-        document.getElementById("url_storage_here").innerHTML = videoURL;
+        document.getElementById("url_storage_here_movie").innerHTML = videoURL;
     } else {
         console.log("id url ERROR ");
-        document.getElementById("url_storage_here").innerHTML = "Invalid Vimeo URL";
+        document.getElementById("url_storage_here_movie").innerHTML = "Invalid Vimeo URL";
     }
+}
+
+function getDriveFileId(url) {
+    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)\//);
+    if (match && match[1]) {
+        return match[1];
+    } else {
+        console.error("Invalid Google Drive URL");
+        return null;
+    }
+}
+
+function changeUrl() {
+    const urlimg = document.getElementById("imageurl").value;
+    const newurl = getDriveFileId(urlimg);
+    const fileURL = "https://drive.google.com/uc?id=" + newurl;
+    document.getElementById("url_storage_here").innerHTML = fileURL;
 }

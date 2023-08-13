@@ -27,10 +27,7 @@
         </form>
         <br>
         <iframe src="https://www.youtube.com/embed/4Ql03rTp1bE" frameborder="0" allowfullscreen></iframe>
-        <h5>get URL to store</h5>
-        <input type="text" id="imageurl" name="imageurl" placeholder='URL here'>
-        <button type=submit onclick="changeUrl()">Change</button>
-        <div id="url_storage_here"></div>
+        
     </div>
 
 

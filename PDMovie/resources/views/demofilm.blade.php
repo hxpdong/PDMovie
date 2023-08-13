@@ -37,9 +37,14 @@
         <label class="half" for="starhalf" title="Rất tệ"></label>
     </div>
     <div id="starpoint"></div>
-    <h5>get URL to store</h5>
+
+    <h5>get URL to store (VIDEO FROM VIMEO)</h5>
     <input type="text" id="imageurl" name="imageurl" placeholder='URL here'>
     <button type=submit onclick="changeVimeoUrl()">Change</button>
+    <div id="url_storage_here_movie"></div>
+    <h5>get URL to store (IMAGE)</h5>
+    <input type="text" id="imageurl" name="imageurl" placeholder='URL here'>
+    <button type=submit onclick="changeUrl()">Change</button>
     <div id="url_storage_here"></div>
     <script src="/js/demofilm.js"></script>
 </body>
