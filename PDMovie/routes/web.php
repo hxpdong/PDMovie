@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,8 @@ Route::get('/demofilm', function() {
 Route::get('movies/{mid}', function(){
     return view('/movie.show');
 });
-Route::get('/login', function () {
-    return view('/auth.login');
-});
 Route::get('/adminpage', function (){
     return view('/admin.index');
 });
+Route::get('/login', [AuthController::class, 'getAuthLogin']);
+Route::post('/login', [AuthController::class, 'postAuthLogin']);

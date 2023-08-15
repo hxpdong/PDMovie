@@ -17,10 +17,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'pdmv_users';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        //'name', 'email','password',
+        'usname', 'password'
     ];
 
     /**
@@ -29,6 +30,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        //'password',
         'password',
         'remember_token',
     ];
