@@ -76,7 +76,7 @@ function getMovies(page) {
         .then(function (response) {
             removeAllMovieItems();
             var movieList = document.getElementById("movie-list");
-            var movies = response.data.movies;
+            var movies = response.data.results.movies;
 
             // Lặp qua danh sách phim và tạo các thẻ <li> để hiển thị thông tin về mỗi bộ phim
             movies.forEach(function (movie) {
@@ -98,6 +98,7 @@ function getMovies(page) {
                 var mid = document.createElement("h6");
                 mid.textContent = movie.movie_id;
                 mid.className = "text-ellipsis";
+                mid.style.height= "0px";
                 movieItem.appendChild(mid);
 
                 // Tạo thẻ <h3> để hiển thị tiêu đề phim
@@ -126,12 +127,12 @@ function getMovies(page) {
             // Cập nhật trạng thái của nút Previous và Next
             var prevButton = document.getElementById("prev-button");
             var nextButton = document.getElementById("next-button");
-            prevButton.disabled = response.data.current_page === 1;
-            nextButton.disabled = response.data.current_page === response.data.last_page;
+            prevButton.disabled = response.data.results.current_page === 1;
+            nextButton.disabled = response.data.results.current_page === response.data.results.last_page;
             var pageButtons = document.getElementById("page-buttons");
-            pageButtons.innerHTML = generatePageButtons(response.data.current_page, response.data.last_page);
+            pageButtons.innerHTML = generatePageButtons(response.data.results.current_page, response.data.results.last_page);
             // Lưu trạng thái trang hiện tại
-            currentPage = response.data.current_page;
+            currentPage = response.data.results.current_page;
         })
         .catch(function (error) {
             console.log(error);

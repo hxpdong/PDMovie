@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\RecommenderController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,5 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 */
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/recommended/{uid}', [RecommenderController::class, 'UserBased_CollaborativeFiltering']);
-Route::post('/users/new' , [MovieController::class, 'insertMovie']);
+Route::post('/users/new' , [MovieController::class, 'insertUserTest']);
 Route::get('/movies/{mid}', [MovieController::class, 'show']);

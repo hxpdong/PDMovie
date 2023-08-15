@@ -11,7 +11,7 @@ class MovieController extends Controller
     //
     public function index()
     {
-        $results = DB::select("Select * from movies");
+        $results = DB::select("CALL movie_list()");
         $perPage = 12;
         $currentPage = request()->get('page', 1);
         $total = count($results);
@@ -35,20 +35,27 @@ class MovieController extends Controller
             'per_page' => $movies->perPage(),
             'last_page' => $movies->lastPage(),
         ];
-
-        return response()->json($resultArray);
+        if (!empty($resultArray)) {
+        return response()->json([
+            'success' => true,
+            'results' => $resultArray]);
+        } else {
+            return response()->json([
+                'success' => false]);
+        }
     }
 
-    public function insertMovie(Request $request)
+    public function insertUserTest(Request $request)
     {
         $usname = $request->usname;
         $email = $request->email;
         $passwd = $request->uspasswd;
+        $passwd = password_hash($passwd, PASSWORD_BCRYPT);
         $fullname = $request->fullname;
-        DB::insert('insert into users (usname, email, uspassword, fullname, ustype_id) values (?, ?, ?, ?, ?)', [$usname, $email, $passwd, $fullname, 2]);
+        DB::insert('insert into pdmv_users (usname, email, uspassword, fullname, ustype_id) values (?, ?, ?, ?, ?)', [$usname, $email, $passwd, $fullname, 2]);
 
         // Chèn thông tin người dùng vào cơ sở dữ liệu
-        $lastUser = DB::table('users')
+        $lastUser = DB::table('pdmv_users')
         ->orderBy('user_id', 'desc')  // Sắp xếp theo cột ID theo thứ tự giảm dần (ngược lại)
         ->first();
         
@@ -59,9 +66,19 @@ class MovieController extends Controller
     }
 
     public function show($mid){
-        $results = DB::select("Select * from movies where movie_id=?", array($mid));
-        return response()->json([
-            'movie_detail' => $results
-        ]);
+        $results = DB::select("CALL movie_showdetail(?)", array($mid));
+        if (!empty($results)) {
+            return response()->json([
+                'success' => true,
+                'movie_detail' => $results
+            ]);
+        } else {
+            // Đăng nhập thất bại
+            return response()->json([
+                'success' => false
+            ]);
+        }
+
+        
     }
 }

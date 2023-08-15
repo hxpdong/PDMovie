@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <div id="main-container">
+    <div class="main-container">
         <div id="movie-list" class="grid-container">
         </div>
         <div id="pagination">
@@ -16,7 +16,7 @@
             <button id="next-button" onclick="nextPage()">Next</button>
         </div>
     </div>
-    <div id="right-container">
+    <div class="right-container">
         <h5>Sign up</h5>
         <form action="/api/users/new" method="post" id="SignUpForm">
             <input type="text" name="usname" placeholder='username' required>

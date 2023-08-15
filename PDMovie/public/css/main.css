@@ -10,12 +10,12 @@ body {
     background-color: var(--color-gray);
 }
 
-#main-container {
+.main-container {
     width: 75%;
     margin: 10px;
 }
 
-#right-container {
+.right-container {
     position: fixed;
     top: 0;
     right: 0;

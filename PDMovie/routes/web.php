@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/movie.index');
 });
 Route::get('/movies', function() {
     return view('/movie.index');
@@ -24,4 +24,10 @@ Route::get('/demofilm', function() {
 });
 Route::get('movies/{mid}', function(){
     return view('/movie.show');
+});
+Route::get('/login', function () {
+    return view('/auth.login');
+});
+Route::get('/adminpage', function (){
+    return view('/admin.index');
 });
