@@ -63,5 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'PDMV_checklogin' => \App\Http\Middleware\PDMV_CheckLogin::class,
+        'PDMV_isLogin' => \App\Http\Middleware\PDMV_isLogin::class,
+        'PDMV_alreadyLoggedIn' => \App\Http\Middleware\PDMV_alreadyLoggedIn::class,
     ];
 }

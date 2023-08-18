@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Kernel;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,14 @@ Route::get('/demofilm', function() {
 Route::get('movies/{mid}', function(){
     return view('/movie.show');
 });
-Route::get('/adminpage', function (){
+Route::get('/adminpage', function () {
     return view('/admin.index');
-});
-Route::get('/login', [AuthController::class, 'getAuthLogin']);
+})->middleware('PDMV_isLogin', 'PDMV_checklogin');
+
+Route::get('/login', [AuthController::class, 'getAuthLogin'])->middleware('PDMV_alreadyLoggedIn');
 Route::post('/login', [AuthController::class, 'postAuthLogin']);
+Route::get('/logout', [AuthController::class, 'AuthLogout']);
+
+Route::get('/recommend', function() {
+    return view('/movie.recommender');
+})->middleware('PDMV_isLogin');

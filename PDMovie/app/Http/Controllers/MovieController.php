@@ -52,16 +52,32 @@ class MovieController extends Controller
         $passwd = $request->uspasswd;
         $passwd = password_hash($passwd, PASSWORD_BCRYPT);
         $fullname = $request->fullname;
-        DB::insert('insert into pdmv_users (usname, email, uspassword, fullname, ustype_id) values (?, ?, ?, ?, ?)', [$usname, $email, $passwd, $fullname, 2]);
 
-        // Chèn thông tin người dùng vào cơ sở dữ liệu
+        // Insert the new user's account
+        DB::insert('insert into pdmv_accounts (usname, password, acctype_id) values (?, ?, ?)', [$usname, $passwd, 3]);
+
+        // Get the newly inserted account's ID
+        $numaccid = DB::table('pdmv_accounts')
+            ->where('acctype_id', 3)
+            ->max('acc_id');
+
+        // Insert the user associated with the new account
+        DB::insert('insert into pdmv_users (user_id, email, fullname) values (?, ?, ?)', [$numaccid, $email, $fullname]);
+
+        // Get the newly inserted user's information
         $lastUser = DB::table('pdmv_users')
-        ->orderBy('user_id', 'desc')  // Sắp xếp theo cột ID theo thứ tự giảm dần (ngược lại)
-        ->first();
-        
+            ->where('user_id', $numaccid)
+            ->first();
+
+        // Get the information of the newly inserted account
+        $lastAccount = DB::table('pdmv_accounts')
+            ->where('acc_id', $numaccid)
+            ->first();
+
         return response()->json([
             'success' => true,
             'newuser' => $lastUser,
+            'newacc' => $lastAccount
         ]);
     }
 

@@ -8,6 +8,16 @@
 
 <body>
     <div class="main-container">
+        Ngày mới tốt lành,
+        @if(Session::has('inforUser') && Session::get('inforUser')['usname'])
+            {{ Session::get('inforUser')['usname'] }}!
+            <a href="/logout"><button id="btnLogOut">Logout</button></a>
+            <a href="/recommend"><button id="btnRecommend">Gợi ý cho bạn</button></a>
+        @else
+            Guest!
+            <a href="/login"><button id="btnLogIn">Login</button></a>
+        @endif
+        
         <div id="movie-list" class="grid-container">
         </div>
         <div id="pagination">

@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'pdmv_users';
+    protected $table = 'pdmv_accounts';
 
     protected $fillable = [
         //'name', 'email','password',
