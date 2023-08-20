@@ -38,3 +38,11 @@ Route::get('/logout', [AuthController::class, 'AuthLogout']);
 Route::get('/recommend', function() {
     return view('/movie.recommender');
 })->middleware('PDMV_isLogin');
+
+Route::get('/admin/dashboard', function () {
+    return view('/admin.dashboard');
+})->middleware('PDMV_isLogin', 'PDMV_checklogin');
+
+Route::get('/header', function() {
+    return view('/component.header');
+});

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var initialPage = getPageFromURL();
     getMovies(initialPage);
     // Lấy tất cả các .grid-item
-
+    /*
     var form = document.getElementById("SignUpForm");
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Ngăn form submit theo cách thông thường
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Xử lý lỗi kết nối hoặc lỗi từ server
                 alert("An error occurred. Please try again later.");
             });
-    });
+    });*/
 });
 
 function addTooltip() {
@@ -156,10 +156,10 @@ function generatePageButtons(currentPage, lastPage) {
     for (var i = 1; i <= lastPage; i++) {
         if (i === currentPage) {
             // Nếu đây là trang hiện tại, thì không thêm sự kiện onclick
-            pageButtons += '<button class="active">' + i + '</button>';
+            pageButtons += '<button class="active" style="margin:2px">' + i + '</button>';
         } else {
             // Nếu không, thêm sự kiện onclick
-            pageButtons += '<button onclick="gotoPage(' + i + ')">' + i + '</button>';
+            pageButtons += '<button onclick="gotoPage(' + i + ')" style="margin:2px">' + i + '</button>';
         }
     }
     return pageButtons;

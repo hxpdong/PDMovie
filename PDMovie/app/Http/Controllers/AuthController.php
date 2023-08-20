@@ -28,7 +28,7 @@ class AuthController extends Controller
                 $information = Session::put('inforUser', $data);
             }
             
-            return redirect('/adminpage');
+            return redirect('/admin/dashboard');
         }else{
             return response()->json([
                 "success" => false,
@@ -53,7 +53,7 @@ class AuthController extends Controller
             Session::pull('loginId');
             Session::pull('inforUser');
             //Session::pull('locale');
-            return redirect('/login');
+            return redirect()->back();
         }
     }
 }
