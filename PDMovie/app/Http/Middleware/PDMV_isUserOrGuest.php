@@ -4,10 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
-class PDMV_CheckLogin
+class PDMV_isUserOrGuest
 {
     /**
      * Handle an incoming request.
@@ -18,10 +16,11 @@ class PDMV_CheckLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Session()->has('loginId') && (Session::get('inforUser')['acctype_id']=="1" ||Session::get('inforUser')['acctype_id']=="2") ){
+        
+        if(!Session()->has('loginId') || (Session::get('inforUser')['acctype_id']=="3") ){
             return $next($request);
-        } else {
-            return redirect("/");
+        } else if((Session::get('inforUser')['acctype_id']=="1" ||Session::get('inforUser')['acctype_id']=="2")){
+            return redirect("/admin/dashboard");
         }
     }
 }

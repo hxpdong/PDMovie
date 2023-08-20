@@ -15,34 +15,43 @@ use App\Http\Kernel;
 |
 */
 
-Route::get('/', function () {
-    return view('/movie.index');
-});
-Route::get('/movies', function() {
-    return view('/movie.index');
-});
-Route::get('/demofilm', function() {
-    return view('demofilm');
-});
-Route::get('movies/{mid}', function(){
-    return view('/movie.show');
-});
-Route::get('/adminpage', function () {
-    return view('/admin.index');
-})->middleware('PDMV_isLogin', 'PDMV_checklogin');
-
+///////////////
 Route::get('/login', [AuthController::class, 'getAuthLogin'])->middleware('PDMV_alreadyLoggedIn');
 Route::post('/login', [AuthController::class, 'postAuthLogin']);
-Route::get('/logout', [AuthController::class, 'AuthLogout']);
-
-Route::get('/recommend', function() {
-    return view('/movie.recommender');
-})->middleware('PDMV_isLogin');
-
-Route::get('/admin/dashboard', function () {
-    return view('/admin.dashboard');
-})->middleware('PDMV_isLogin', 'PDMV_checklogin');
-
-Route::get('/header', function() {
-    return view('/component.header');
+///////////////for Logged in
+Route::middleware(['PDMV_isLogin'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'AuthLogout']);
+});
+////////Just Admin and SP Admin
+Route::middleware(['PDMV_isLogin', 'PDMV_isAdmin'])->group(function () {
+    Route::get('/adminpage', function () {
+        return view('/admin.index');
+    });
+    Route::get('/admin/dashboard', function () {
+        return view('/admin.dashboard');
+    });
+});
+////////Just for User
+Route::middleware(['PDMV_isLogin', 'PDMV_isUser'])->group(function (){
+    Route::get('/recommend', function() {
+        return view('/movie.recommender');
+    });
+});
+////////Just User or Guest
+Route::middleware(['PDMV_isUserOrGuest'])->group(function () {
+    Route::get('/', function () {
+        return view('/movie.index');
+    });
+    Route::get('/movies', function() {
+        return view('/movie.index');
+    });
+    Route::get('/demofilm', function() {
+        return view('demofilm');
+    });
+    Route::get('movies/{mid}', function(){
+        return view('/movie.show');
+    });
+    Route::get('/header', function() {
+        return view('/component.header');
+    });
 });
