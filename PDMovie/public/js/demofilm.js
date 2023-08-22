@@ -6,6 +6,7 @@ const ratingOutput = document.getElementById(
 stars.forEach(star => star.addEventListener('click', () => {
     const selectedRating = star.value;
     ratingOutput.innerText = `Đánh giá: ${selectedRating} sao`;
+    console.log('danhgia: ' + selectedRating);
 }));
 
 function getVimeoVideoId(url) {
@@ -21,7 +22,7 @@ function getVimeoVideoId(url) {
 }
 
 function changeVimeoUrl() {
-    const url = document.getElementById("imageurl").value;
+    const url = document.getElementById("videourl").value;
     const videoId = getVimeoVideoId(url);
 
     if (videoId) {
@@ -35,7 +36,7 @@ function changeVimeoUrl() {
 }
 
 function getDriveFileId(url) {
-    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)\//);
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)\/view/);
     if (match && match[1]) {
         return match[1];
     } else {

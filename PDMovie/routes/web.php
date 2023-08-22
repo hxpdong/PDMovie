@@ -55,3 +55,7 @@ Route::middleware(['PDMV_isUserOrGuest'])->group(function () {
         return view('/component.header');
     });
 });
+
+Route::get('/test', function(){
+    return view('/test');
+});

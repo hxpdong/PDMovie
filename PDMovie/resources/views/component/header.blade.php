@@ -8,21 +8,18 @@
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">PDMovie</span>
             </a>
             <input class="w-32 pl-10 pr-4 rounded-md form-input sm:w-64 focus:border-indigo-600" type="text"
-                placeholder="Search">
+                placeholder="Nhập từ khóa...">
             <div class="flex items-center lg:order-2">
                 @if(Session::has('inforUser') && Session::get('inforUser')['usname'])
                 <a href="">{{ Session::get('inforUser')['usname'] }}</a>
                 <a href="/logout"
-                    class="text-gray-800 bg-white mx-1 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log
-                    out</a>
+                    class="text-gray-800 bg-white mx-1 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Đăng xuất</a>
                 @else
                 Guest!
                 <a href="/login"
-                    class="text-gray-800 bg-white mx-1 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log
-                    in</a>
+                    class="text-gray-800 bg-white mx-1 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Đăng nhập</a>
                 <a href="#"
-                    class="text-white bg-[#66CCFF] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign
-                    up</a>
+                    class="text-white bg-[#66CCFF] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Đăng ký</a>
                 @endif
 
 
@@ -48,18 +45,18 @@
                     <li>
                         <a href="/"
                             class="block py-2 pr-4 pl-3 text-white rounded bg-gray-700 lg:bg-transparent lg:text-black lg:p-0 dark:text-white"
-                            aria-current="page">Home</a>
+                            aria-current="page">Trang chủ</a>
                     </li>
                     <li>
                         <a href="/"
                             class="block py-2 pr-4 pl-3 text-white rounded bg-gray-700 lg:bg-transparent lg:text-black lg:p-0 dark:text-white"
-                            aria-current="page">Genre</a>
+                            aria-current="page">Thể loại</a>
                     </li>
                     @if(Session::has('loginId'))
                     <li>
                         <a href="/recommend"
                             class="block py-2 pr-4 pl-3 text-white rounded bg-gray-700 lg:bg-transparent lg:text-black lg:p-0 dark:text-white"
-                            aria-current="page">Recommended for you</a>
+                            aria-current="page">Đề xuất cho bạn</a>
                     </li>
                     @endif
                 </ul>

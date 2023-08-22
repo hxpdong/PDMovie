@@ -4,6 +4,7 @@
 <head>
     <title>List of Movies</title>
     <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <div class="main-container">
@@ -21,9 +22,9 @@
         <div id="movie-list" class="grid-container">
         </div>
         <div id="pagination">
-            <button id="prev-button" onclick="prevPage()">Previous</button>
+            <button id="prev-button" onclick="prevPage()">Trang trước</button>
             <span id="page-buttons"></span>
-            <button id="next-button" onclick="nextPage()">Next</button>
+            <button id="next-button" onclick="nextPage()">Trang kế</button>
         </div>
     </div>
     {{--

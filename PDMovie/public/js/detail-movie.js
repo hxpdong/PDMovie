@@ -18,14 +18,22 @@ function loadMovieDetail(movieId) {
 
 function updateMovieDetail(movieDetail) {
     var titleElement = document.getElementById("mvdetail-title");
+    var titleEnElement = document.getElementById("mvdetail-title-en");
     var directorElement = document.getElementById("mvdetail-directors");
     var actorsElement = document.getElementById("mvdetail-actors");
     var posterElement = document.getElementById("mvdetail-img");
-
+    var contentElement = document.getElementById("mvdetail-content");
+    var ratingElement = document.getElementById("mvdetail-rating");
+    var numRatingElement = document.getElementById("mvdetail-numrating");
+    
     movieDetail.forEach(function (movie) {
         titleElement.innerHTML = movie.title_vi;
-        directorElement.innerHTML = "Đạo diễn: " + movie.director;
-        actorsElement.innerHTML = "Diễn viên: " + movie.actors;
+        titleEnElement.innerHTML = movie.title_en;
+        directorElement.innerHTML = movie.director;
+        actorsElement.innerHTML = movie.actors;
+        contentElement.innerHTML = movie.content;
+        ratingElement.innerHTML = movie.mvpoint;
+        numRatingElement.innerHTML = movie.numrating;
         if (movie.posterURL != null)
             posterElement.src = movie.posterURL;
         else posterElement.src = defaultImageUrl;
