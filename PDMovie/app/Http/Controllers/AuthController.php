@@ -44,10 +44,13 @@ class AuthController extends Controller
             ]);*/
             return redirect('/admin/dashboard');
         }else{
+            /*
             return response()->json([
                 "success" => false,
                 "message" => "TK hoac MK khong dung"
             ]);
+            */
+            return redirect('/login');
         }
     }
 
@@ -64,12 +67,50 @@ class AuthController extends Controller
         return redirect('/');
         */
         if(Session::has('loginId')) {
+            Auth::logout();
             Session::pull('loginId');
             Session::pull('inforUser');
             Session::pull('fullInfoUser');
             Session::pull('recommendedMovies');
             //Session::pull('locale');
             return redirect()->back();
+        }
+    }
+
+    public function modalPostAuthLogin(Request $request){
+        
+        $arr = [
+            'usname' => $request->mdusname, 
+            'password' => $request->mduspassword
+        ];
+        if(Auth::attempt($arr)){
+            $loggedInUser = Auth::user(); // Get the logged-in user
+            $request->session()->put('loginId', $loggedInUser->acc_id);
+            $data = array();
+            if(Session::has('loginId')){
+                $data = $loggedInUser;
+                $information = Session::put('inforUser', $data);
+                if(Session::get('inforUser')['acctype_id'] == '3'){
+                    $recommendedMovies = DB::select('CALL collab_recommendedmovies(?, ?)', array(Session::get('loginId'), 9));
+                    $information2 = Session::put('recommendedMovies', $recommendedMovies);
+                    $userlogged = DB::select('SELECT * FROM pdmv_users WHERE USER_ID = ? LIMIT 1', array(Session::get('loginId')));
+                    $information3 = Session::put('fullInfoUser', $userlogged);
+                }
+                
+
+            }
+            return response()->json([
+                "success" => true,
+                'loginas' => Session::get('loginId'),
+                'accinfor' => Session::get('inforUser'),
+                'userinfor' => Session::get('fullInfoUser'),
+                'recommend' => Session::get('recommendedMovies')
+            ]);
+        }else{
+            return response()->json([
+                "success" => false,
+                "message" => "Tài khoản hoặc mật khẩu không đúng"
+            ]);
         }
     }
 }

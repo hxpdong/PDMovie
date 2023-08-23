@@ -59,3 +59,5 @@ Route::middleware(['PDMV_isUserOrGuest'])->group(function () {
 Route::get('/test', function(){
     return view('/test');
 });
+
+Route::post('/modalLogin', [AuthController::class, 'modalPostAuthLogin'])->name('modalLogin');

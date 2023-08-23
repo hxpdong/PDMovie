@@ -26,3 +26,5 @@ Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/recommended/{uid}', [RecommenderController::class, 'UserBased_CollaborativeFiltering']);
 Route::post('/users/new' , [MovieController::class, 'insertUserTest']);
 Route::get('/movies/{mid}', [MovieController::class, 'show']);
+Route::get('comments/{mid}', [MovieController::class, 'getCommentListOf']);
+Route::post('/postcomment' , [MovieController::class, 'postComment']);

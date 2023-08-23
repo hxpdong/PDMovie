@@ -75,78 +75,96 @@
                 <section class="bg-white shadow-lg border-gray-100 border rounded-3xl p-8 flex space-x-8">
                     <div class="max-w-2xl mx-auto px-4">
                         <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Đánh giá (20)</h2>
+                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Bình luận</h2>
                         </div>
-                        <form class="mb-6">
-                            <div class="star-rating">
-                                <input type="radio" name="rating" id="star5" value="5" />
-                                <label for="star5" title="Rất tốt"></label>
-                                <input type="radio" name="rating" id="star4" value="4" />
-                                <label for="star4" title="Tốt"></label>
-                                <input type="radio" name="rating" id="star3" value="3" />
-                                <label for="star3" title="Bình thường"></label>
-                                <input type="radio" name="rating" id="star2" value="2" />
-                                <label for="star2" title="Tệ"></label>
-                                <input type="radio" name="rating" id="star1" value="1" />
-                                <label for="star1" title="Rất tệ"></label>
-                            </div>
-                            <div id="starpoint"></div>
+                        @if(Session::has('loginId'))
+                        <div class="star-rating">
+                            <input type="radio" name="rating" id="star5" value="5" />
+                            <label for="star5" title="Rất tốt"></label>
+                            <input type="radio" name="rating" id="star4" value="4" />
+                            <label for="star4" title="Tốt"></label>
+                            <input type="radio" name="rating" id="star3" value="3" />
+                            <label for="star3" title="Bình thường"></label>
+                            <input type="radio" name="rating" id="star2" value="2" />
+                            <label for="star2" title="Tệ"></label>
+                            <input type="radio" name="rating" id="star1" value="1" />
+                            <label for="star1" title="Rất tệ"></label>
+                        </div>
+                        <div id="starpoint"></div>
+                        <form class="mb-6" id="postcmt">
                             <div
                                 class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                 <label for="comment" class="sr-only">Your comment</label>
-                                <textarea id="comment" rows="6"
+                                <textarea id="comment" rows="6" cols="100" name="comment"
                                     class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                                    placeholder="Write a comment..." required></textarea>
+                                    placeholder="Viết bình luận..." required></textarea>
                             </div>
                             <button type="submit"
                                 class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-[#66CCFF] rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                                 Gửi đánh giá
                             </button>
                         </form>
-                        <article
-                            class="p-6 mb-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <footer class="flex justify-between items-center mb-2">
-                                <div class="flex items-center">
-                                    <img class="mr-2 w-6 h-6 rounded-full" src="/img/fav.png" alt="Bonnie Green">
-                                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                                        Bonnie Green</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate
-                                            datetime="2022-03-12" title="March 12th, 2022">Mar. 12, 2022</time></p>
-                                </div>
-                                <button id="dropdownComment3Button" data-dropdown-toggle="dropdownComment3"
-                                    class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                    type="button">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
-                                        </path>
-                                    </svg>
-                                    <span class="sr-only">Comment settings</span>
-                                </button>
-                                <!-- Dropdown menu -->
-                                <div id="dropdownComment3"
-                                    class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownMenuIconHorizontalButton">
-                                        <li>
-                                            <a href="#"
-                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </footer>
-                            <p class="text-gray-500 dark:text-gray-400">The article covers the essentials, challenges,
-                                myths and stages the UX designer should consider while creating the design strategy.</p>
-                        </article>
+                        @else
+                        <button
+                            class="block text-white bg-[#66CCFF] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button" data-modal-toggle="authentication-modal">
+                            Đăng nhập để gửi đánh giá
+                        </button>
+                        @endif
+                        <div id="comment-list">
+                            {{--
+                            <article
+                                class="p-6 mb-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                <footer class="flex justify-between items-center mb-2">
+                                    <div class="flex items-center">
+                                        <img class="mr-2 w-6 h-6 rounded-full" src="/img/fav.png" alt="Bonnie Green">
+                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                                            Bonnie Green</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate
+                                                datetime="2022-03-12" title="March 12th, 2022">Mar. 12, 2022</time></p>
+                                    </div>
+                                    <button id="dropdownComment3Button" data-dropdown-toggle="dropdownComment3"
+                                        class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        type="button">
+                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z">
+                                            </path>
+                                        </svg>
+                                        <span class="sr-only">Comment settings</span>
+                                    </button>
+                                    <!-- Dropdown menu -->
+                                    <div id="dropdownComment3"
+                                        class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="dropdownMenuIconHorizontalButton">
+                                            <li>
+                                                <a href="#"
+                                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"
+                                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"
+                                                    class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </footer>
+                                <p class="text-gray-500 dark:text-gray-400">The article covers the essentials,
+                                    challenges,
+                                    myths and stages the UX designer should consider while creating the design strategy.
+                                </p>
+                            </article>
+                            --}}
+                        </div>
+                        <div id="pagination">
+                            <button id="load-prev-cmt-button" onclick="loadPrevComment()" class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang trước</button>
+                            <button id="load-next-cmt-button" onclick="loadNextComment()" class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang kế</button>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -155,6 +173,178 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/detail-movie.js"></script>
     <script src="/js/demofilm.js"></script>
+    <script>
+    var accId = <?php echo json_encode(Session::get('loginId')); ?>;
+    </script>
+    <script>
+    var currentCmtPage = 1;
+
+    function getComments(mid, page) {
+        axios.get('/api/comments/' + mid + '?page=' + page)
+            .then(function(response) {
+                removeAllCommentItems();
+                var commentList = document.getElementById("comment-list");
+                var comments = response.data.results.comments;
+                
+                comments.forEach(function(cmt) {
+                    var cntcmt = cmt.comment_id;
+                    commentItem = document.createElement("article");
+                    commentItem.className =
+                        "p-6 mb-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900";
+
+                    var footer = document.createElement("footer");
+                    footer.className = "flex justify-between items-center mb-2";
+
+                    // Tạo phần tử div trong footer
+                    var divFooter = document.createElement("div");
+                    divFooter.className = "flex items-center";
+
+                    // Tạo phần tử img trong divFooter
+                    var img = document.createElement("img");
+                    img.className = "mr-2 w-6 h-6 rounded-full";
+                    img.src = "/img/fav.png";
+                    img.alt = cmt.user_id;
+
+                    // Tạo phần tử p trong divFooter cho tên tác giả
+                    var authorName = document.createElement("p");
+                    authorName.className =
+                        "inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white";
+                    authorName.textContent = cmt.usname;
+
+                    // Tạo phần tử p trong divFooter cho ngày đăng
+                    var publishDate = document.createElement("p");
+                    publishDate.className = "text-sm text-gray-600 dark:text-gray-400";
+                    var time = document.createElement("time");
+                    //time.setAttribute("pubdate", "");
+                    time.setAttribute("datetime", "2022-03-12");
+                    time.setAttribute("title", "March 12th, 2022");
+                    time.textContent = cmt.commentTime;
+                    publishDate.appendChild(time);
+
+                    // Gắn các phần tử con vào divFooter
+                    divFooter.appendChild(img);
+                    divFooter.appendChild(authorName);
+                    divFooter.appendChild(publishDate);
+        
+                    // Gắn các phần tử con vào footer
+                    footer.appendChild(divFooter);
+
+                    // Tạo phần tử p cho nội dung bài viết
+                    var articleContent = document.createElement("p");
+                    articleContent.className = "text-gray-500 dark:text-gray-400 text-justify";
+                    articleContent.textContent = cmt.comment;
+
+                    // Gắn các phần tử con vào article
+                    commentItem.appendChild(footer);
+                    commentItem.appendChild(articleContent);
+
+                    commentList.appendChild(commentItem);
+
+                });
+                document.getElementById("load-prev-cmt-button").disabled = response.data.results.current_page === 1;
+                document.getElementById("load-next-cmt-button").disabled = response.data.results.current_page ===
+                    response.data.results.last_page;
+            });
+    }
+
+    function removeAllCommentItems() {
+        var commentList = document.getElementById("comment-list");
+        while (commentList.firstChild) {
+            commentList.removeChild(commentList.firstChild);
+        }
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy URL từ trình duyệt
+        var currentURL = window.location.href;
+
+        // Tách URL thành các phần dựa trên dấu "/"
+        var urlParts = currentURL.split('/');
+
+        // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
+        var mid = urlParts[urlParts.length - 1];
+        getComments(mid, currentCmtPage);
+
+
+        var form = document.getElementById("postcmt");
+        if (form) {
+            // Thêm một trường input ẩn vào biểu mẫu để chứa giá trị accId
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "accId"; // Đặt tên trường input tùy theo yêu cầu của bạn
+            input.value = accId;
+            // Thêm trường input vào biểu mẫu
+            form.appendChild(input);
+
+            var currentURL = window.location.href;
+            var urlParts = currentURL.split('/');
+            var mid = urlParts[urlParts.length - 1];
+            var input2 = document.createElement("input");
+            input2.type = "hidden";
+            input2.name = "mId";
+            input2.value = mid;
+            form.appendChild(input2);
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Ngăn form submit theo cách thông thường
+                var postCommentUrl = '/api/postcomment';
+                // Gửi request POST bằng AJAX hoặc Fetch API
+                fetch(postCommentUrl, {
+                        method: "POST",
+                        body: new FormData(form),
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        if (data.success === true) {
+                            // Thực hiện hành động nếu success là true (VD: điều hướng hoặc hiển thị thông báo)
+                            //alert("Post successful!\n");
+                            //getMovies(getPageFromURL());
+                            document.getElementById("comment").value = '';
+                            currentCmtPage = 1;
+                            getComments(mid,currentCmtPage);
+                        } else {
+                            // Xử lý trường hợp không thành công (VD: hiển thị thông báo lỗi)
+                            alert("Post failed. Please try again.");
+                        }
+                    })
+                    .catch(function(error) {
+                        // Xử lý lỗi kết nối hoặc lỗi từ server
+                        alert("An error occurred. Please try again later.");
+                    });
+            });
+        }
+
+    });
+
+    function loadNextComment() {
+        var currentURL = window.location.href;
+
+        // Tách URL thành các phần dựa trên dấu "/"
+        var urlParts = currentURL.split('/');
+
+        // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
+        var mid = urlParts[urlParts.length - 1];
+        currentCmtPage = currentCmtPage + 1;
+        getComments(mid, currentCmtPage);
+    }
+
+    function loadPrevComment() {
+        if (currentCmtPage > 1) {
+            var currentURL = window.location.href;
+
+            // Tách URL thành các phần dựa trên dấu "/"
+            var urlParts = currentURL.split('/');
+
+            // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
+            var mid = urlParts[urlParts.length - 1];
+            currentCmtPage = currentCmtPage - 1;
+            getComments(mid, currentCmtPage);
+        }
+    }
+    </script>
 </body>
 
 </html>
