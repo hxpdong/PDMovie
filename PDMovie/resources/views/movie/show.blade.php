@@ -162,8 +162,12 @@
                             --}}
                         </div>
                         <div id="pagination">
-                            <button id="load-prev-cmt-button" onclick="loadPrevComment()" class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang trước</button>
-                            <button id="load-next-cmt-button" onclick="loadNextComment()" class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang kế</button>
+                            <button id="load-prev-cmt-button" onclick="loadPrevComment()"
+                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang
+                                trước</button>
+                            <button id="load-next-cmt-button" onclick="loadNextComment()"
+                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang
+                                kế</button>
                         </div>
                     </div>
                 </section>
@@ -172,7 +176,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/detail-movie.js"></script>
-    <script src="/js/demofilm.js"></script>
     <script>
     var accId = <?php echo json_encode(Session::get('loginId')); ?>;
     </script>
@@ -185,7 +188,7 @@
                 removeAllCommentItems();
                 var commentList = document.getElementById("comment-list");
                 var comments = response.data.results.comments;
-                
+
                 comments.forEach(function(cmt) {
                     var cntcmt = cmt.comment_id;
                     commentItem = document.createElement("article");
@@ -225,7 +228,7 @@
                     divFooter.appendChild(img);
                     divFooter.appendChild(authorName);
                     divFooter.appendChild(publishDate);
-        
+
                     // Gắn các phần tử con vào footer
                     footer.appendChild(divFooter);
 
@@ -266,9 +269,70 @@
         var mid = urlParts[urlParts.length - 1];
         getComments(mid, currentCmtPage);
 
-
         var form = document.getElementById("postcmt");
         if (form) {
+            axios.get('/api/ratings/' + accId + '/' + mid)
+                .then(function(response) {
+                    var rating = response.data.rating;
+                    rating.forEach(function(rt) {
+                        var ratingValue = parseFloat(rt.rating);
+                        switch (ratingValue) {
+                            case 1.0:
+                                // Xử lý khi rating là 1
+                                document.getElementById("star1").checked = true;
+                                break;
+                            case 2.0:
+                                // Xử lý khi rating là 2
+                                document.getElementById("star2").checked = true;
+                                break;
+                            case 3.0:
+                                // Xử lý khi rating là 3
+                                document.getElementById("star3").checked = true;
+                                break;
+                            case 4.0:
+                                // Xử lý khi rating là 4
+                                document.getElementById("star4").checked = true;
+                                break;
+                            case 5.0:
+                                // Xử lý khi rating là 5
+                                document.getElementById("star5").checked = true;
+                                break;
+                            default:
+
+                                break;
+                        }
+                    });
+                });
+
+            const stars = document.getElementsByName('rating');
+            const ratingOutput = document.getElementById(
+                'starpoint'); // Thay 'rating-output' bằng ID của phần tử hiển thị số sao đã chọn
+
+            stars.forEach(star => star.addEventListener('click', () => {
+                var selectedRating = event.target.value;
+                var acclogged = accId;
+                var currentmov = getMovieIdFromURL();
+                ratingOutput.innerText = `Đánh giá: ${selectedRating} sao`;
+                console.log('danhgia: ' + selectedRating);
+                sendRatingToAPI(selectedRating, acclogged, currentmov);
+            }));
+
+            function sendRatingToAPI(rating, acclogged, currentmov) {
+                axios.post('/api/postrating', {
+                        accId: acclogged,
+                        mId: currentmov,
+                        ratingpoint: rating
+                    })
+                    .then(function(response) {
+                        // Xử lý phản hồi từ API nếu cần
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            }
+
+
+
             // Thêm một trường input ẩn vào biểu mẫu để chứa giá trị accId
             var input = document.createElement("input");
             input.type = "hidden";
@@ -304,7 +368,7 @@
                             //getMovies(getPageFromURL());
                             document.getElementById("comment").value = '';
                             currentCmtPage = 1;
-                            getComments(mid,currentCmtPage);
+                            getComments(mid, currentCmtPage);
                         } else {
                             // Xử lý trường hợp không thành công (VD: hiển thị thông báo lỗi)
                             alert("Post failed. Please try again.");
@@ -343,6 +407,13 @@
             currentCmtPage = currentCmtPage - 1;
             getComments(mid, currentCmtPage);
         }
+    }
+
+    function getMovieIdFromURL() {
+        var currentURL = window.location.href;
+        var urlParts = currentURL.split('/');
+        var mid = urlParts[urlParts.length - 1];
+        return mid;
     }
     </script>
 </body>

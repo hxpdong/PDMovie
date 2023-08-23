@@ -28,3 +28,5 @@ Route::post('/users/new' , [MovieController::class, 'insertUserTest']);
 Route::get('/movies/{mid}', [MovieController::class, 'show']);
 Route::get('comments/{mid}', [MovieController::class, 'getCommentListOf']);
 Route::post('/postcomment' , [MovieController::class, 'postComment']);
+Route::get('/ratings/{uid}/{mid}' , [MovieController::class, 'getRatingOf']);
+Route::post('/postrating' , [MovieController::class, 'postRatingOf']);

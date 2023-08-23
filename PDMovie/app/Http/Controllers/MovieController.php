@@ -153,4 +153,29 @@ class MovieController extends Controller
             'success' => true
         ]);
     }
+
+    public function getRatingOf($uid, $mid){
+        $results = DB::select("SELECT * FROM pdmv_ratings WHERE user_id = ? AND movie_id = ?;", array($uid, $mid));
+        if($results){
+            return response()->json([
+                'success' => true,
+                'rating' => $results
+            ]);
+        }
+        else return response()->json([
+            'success' => false,
+        ]);
+    }
+
+    public function postRatingOf(Request $request){
+        $uid = $request->accId;
+        $mid = $request->mId;
+        $rating = $request->ratingpoint;
+        DB::delete("DELETE FROM pdmv_ratings WHERE user_id = ? AND movie_id = ?", [$uid, $mid]);
+        DB::insert("INSERT INTO pdmv_ratings(user_id, movie_id, rating) VALUES(?, ?, ?)", array($uid, $mid, $rating));
+        return response()->json([
+                'success' => true,
+            ]);
+       
+    }
 }
