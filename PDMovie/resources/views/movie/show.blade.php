@@ -26,6 +26,36 @@
         </div>
     </div>
     --}}
+    <!-- Watch Movie modal -->
+    <div id="watchMovieModal" aria-hidden="true"
+        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="relative w-full max-w-7xl max-h-full">
+            <!-- Modal content -->
+            <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
+                <div class="flex justify-end p-2">
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                        data-modal-toggle="watchMovieModal">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8">
+                    @csrf
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">Xem phim</h3>
+                    <div class="responsive-container container mx-auto">
+                        <iframe class="responsive-iframe" src="https://player.vimeo.com/video/854102726" frameborder="0"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="flex flex-col justify-center">
         <div id="mvdetail-grid">
             <!--FILMDETAIL-->
@@ -33,7 +63,7 @@
                 <div class="bg-white shadow-lg border-gray-100 border rounded-3xl p-8 flex space-x-8">
                     <div class="overflow-visible w-1/2">
                         <img class="rounded-3xl shadow-lg" id="mvdetail-img" src="">
-                        <button
+                        <button data-modal-target="watchMovieModal" data-modal-toggle="watchMovieModal"
                             class="m-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                             Xem phim
                         </button>
@@ -73,9 +103,11 @@
             <!--COMMENTS-->
             <div class="py-3 sm:mx-auto mvdetail-grid-item">
                 <section class="bg-white shadow-lg border-gray-100 border rounded-3xl p-8 flex space-x-8">
-                    <div class="max-w-2xl mx-auto px-4">
+                    <div class="max-w-2xl mx-auto px-4  w-full">
                         <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Bình luận</h2>
+                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Bình luận
+                                (<span id="numofcmt">0</span>)
+                            </h2>
                         </div>
                         @if(Session::has('loginId'))
                         <div class="star-rating">
@@ -247,6 +279,7 @@
                 document.getElementById("load-prev-cmt-button").disabled = response.data.results.current_page === 1;
                 document.getElementById("load-next-cmt-button").disabled = response.data.results.current_page ===
                     response.data.results.last_page;
+                document.getElementById("numofcmt").innerHTML = response.data.results.total;
             });
     }
 
@@ -259,14 +292,7 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
-        // Lấy URL từ trình duyệt
-        var currentURL = window.location.href;
-
-        // Tách URL thành các phần dựa trên dấu "/"
-        var urlParts = currentURL.split('/');
-
-        // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
-        var mid = urlParts[urlParts.length - 1];
+        var mid = getMovieIdFromURL();
         getComments(mid, currentCmtPage);
 
         var form = document.getElementById("postcmt");
@@ -341,9 +367,8 @@
             // Thêm trường input vào biểu mẫu
             form.appendChild(input);
 
-            var currentURL = window.location.href;
-            var urlParts = currentURL.split('/');
-            var mid = urlParts[urlParts.length - 1];
+
+            var mid = getMovieIdFromURL();
             var input2 = document.createElement("input");
             input2.type = "hidden";
             input2.name = "mId";
@@ -384,26 +409,15 @@
     });
 
     function loadNextComment() {
-        var currentURL = window.location.href;
-
-        // Tách URL thành các phần dựa trên dấu "/"
-        var urlParts = currentURL.split('/');
-
-        // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
-        var mid = urlParts[urlParts.length - 1];
+        var mid = getMovieIdFromURL();
         currentCmtPage = currentCmtPage + 1;
         getComments(mid, currentCmtPage);
     }
 
     function loadPrevComment() {
         if (currentCmtPage > 1) {
-            var currentURL = window.location.href;
 
-            // Tách URL thành các phần dựa trên dấu "/"
-            var urlParts = currentURL.split('/');
-
-            // Lấy phần tử cuối cùng của mảng, chứa số bạn cần
-            var mid = urlParts[urlParts.length - 1];
+            var mid = getMovieIdFromURL();
             currentCmtPage = currentCmtPage - 1;
             getComments(mid, currentCmtPage);
         }
@@ -411,9 +425,12 @@
 
     function getMovieIdFromURL() {
         var currentURL = window.location.href;
-        var urlParts = currentURL.split('/');
-        var mid = urlParts[urlParts.length - 1];
-        return mid;
+        var regexPattern = /\/movies\/([a-zA-Z0-9\-_]+)/;
+        var match = currentURL.match(regexPattern);
+        if (match && match[1]) {
+            return match[1]; // Trả về chuỗi từ regex match
+        }
+        return null;
     }
     </script>
 </body>
