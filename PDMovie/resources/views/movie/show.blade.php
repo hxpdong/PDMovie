@@ -195,11 +195,9 @@
                         </div>
                         <div id="pagination">
                             <button id="load-prev-cmt-button" onclick="loadPrevComment()"
-                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang
-                                trước</button>
+                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
                             <button id="load-next-cmt-button" onclick="loadNextComment()"
-                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow">Trang
-                                kế</button>
+                                class="m-2 bg-white hover:bg-[#66CCFF] hover:text-white text-gray-800 py-2 px-4 border border-gray-400 rounded shadow"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </section>

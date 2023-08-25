@@ -142,14 +142,16 @@ function getMovies(page) {
 
 function prevPage() {
     if (currentPage > 1) {
-        getMovies(currentPage - 1);
-        updatePageURL(currentPage - 1);
+        //getMovies(currentPage - 1);
+        //updatePageURL(currentPage - 1);
+        redirectToWebsite("/movies?page=" + (currentPage-1));
     }
 }
 
 function nextPage() {
-    getMovies(currentPage + 1);
-    updatePageURL(currentPage + 1);
+    //getMovies(currentPage + 1);
+    //updatePageURL(currentPage + 1);
+    redirectToWebsite("/movies?page=" + (currentPage+1));
 }
 
 function generatePageButtons(currentPage, lastPage) {
@@ -167,8 +169,9 @@ function generatePageButtons(currentPage, lastPage) {
 }
 
 function gotoPage(page) {
-    getMovies(page);
-    updatePageURL(page);
+    //getMovies(page);
+    //updatePageURL(page);
+    redirectToWebsite("/movies?page=" + (page));
 }
 
 function updatePageURL(page) {

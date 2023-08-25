@@ -21,7 +21,8 @@ class AuthController extends Controller
         ];
         if(Auth::attempt($arr)){
             $loggedInUser = Auth::user(); // Get the logged-in user
-            $request->session()->put('loginId', $loggedInUser->acc_id);
+            //$request->session()->put('loginId', $loggedInUser->acc_id);
+            $inforLogin = Session::put('loginId', $loggedInUser->acc_id);
             $data = array();
             if(Session::has('loginId')){
                 $data = $loggedInUser;
